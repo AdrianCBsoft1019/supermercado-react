@@ -1,11 +1,15 @@
+import Footer from "./components/Footer";
 
-
-function App() {
-
+export default function App() {
   return (
-    <>
-    </>
-  )
-}
+    <div className="min-h-screen flex flex-col">
 
-export default App
+      <main className="flex-1">
+        {}
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+}
