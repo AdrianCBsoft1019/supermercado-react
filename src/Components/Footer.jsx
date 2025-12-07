@@ -48,7 +48,7 @@ export default function Footer() {
       </div>
 
       <p className="text-center text-white/70 text-xs mt-10">
-        © {new Date().getFullYear()} NovaMarket — Todos los derechos reservados.
+        © {new Date().getFullYear()} Fast DRC Supermarket — Todos los derechos reservados.
       </p>
 
     </footer>
