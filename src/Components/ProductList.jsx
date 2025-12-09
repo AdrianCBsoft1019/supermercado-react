@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ProductCard from "./ProductCard";
 
 const products = [
@@ -17,7 +18,6 @@ const products = [
     desc: "Pechuga sin piel lista para cocinar.",
     image: "./src/assets/img/pollo1.webp",
   },
-
   {
     id: 3,
     title: "Manzanas Rojas",
@@ -34,7 +34,6 @@ const products = [
     desc: "Banano maduro ideal para snacks.",
     image: "./src/assets/img/frutas2.jpg",
   },
-
   {
     id: 5,
     title: "Lechuga Crespa",
@@ -51,7 +50,6 @@ const products = [
     desc: "Paquete de zanahorias frescas.",
     image: "./src/assets/img/verduras2.jpg",
   },
-
   {
     id: 7,
     title: "Fríjol rojo",
@@ -68,7 +66,6 @@ const products = [
     desc: "Arroz blanco grano largo.",
     image: "./src/assets/img/granos2.jpg",
   },
-
   {
     id: 9,
     title: "Galletas Oreo",
@@ -85,7 +82,6 @@ const products = [
     desc: "Papas fritas sabor natural.",
     image: "./src/assets/img/papasmargarita.png",
   },
-
   {
     id: 11,
     title: "Filete de Salmón",
@@ -102,7 +98,6 @@ const products = [
     desc: "Tilapia fresca lista para cocinar.",
     image: "./src/assets/img/tilapia.webp",
   },
-
   {
     id: 13,
     title: "Detergente Líquido",
@@ -119,7 +114,6 @@ const products = [
     desc: "Elimina el 99.9% de bacterias.",
     image: "./src/assets/img/jabon.png",
   },
-
   {
     id: 15,
     title: "Platos Desechables",
@@ -137,89 +131,115 @@ const products = [
     image: "./src/assets/img/vasos.jpeg",
   },
   {
-  id: 17,
-  title: "Costilla de Cerdo",
-  price: 15800,
-  category: "carnes",
-  desc: "500g de costilla fresca ideal para asar.",
-  image: "./src/assets/img/carne2.webp",
-},
-{
-  id: 18,
-  title: "Chorizo Antioqueño",
-  price: 8400,
-  category: "carnes",
-  desc: "Paquete de 6 chorizos tradicionales.",
-  image: "./src/assets/img/chorizo.webp",
-},
-{
-  id: 19,
-  title: "Pera Verde",
-  price: 4500,
-  category: "frutas",
-  desc: "Pera fresca y jugosa por unidad.",
-  image: "./src/assets/img/pera.jpeg",
-},
-{
-  id: 20,
-  title: "Mango Tommy",
-  price: 5200,
-  category: "frutas",
-  desc: "Mango dulce y aromático de tamaño grande.",
-  image: "./src/assets/img/mango.jpeg",
-},
-{
-  id: 21,
-  title: "Pimentón Rojo",
-  price: 3300,
-  category: "verduras",
-  desc: "Pimentón rojo fresco, unidad.",
-  image: "./src/assets/img/pimenton.jpeg",
-},
-{
-  id: 22,
-  title: "Lentejas",
-  price: 4100,
-  category: "granos",
-  desc: "Libra de lenteja tradicional.",
-  image: "./src/assets/img/lentejas.jpeg",
-},
-{
-  id: 23,
-  title: "Chocorramo",
-  price: 3200,
-  category: "pasabocas",
-  desc: "Ponqué de chocolate clásico.",
-  image: "./src/assets/img/chocorramo.jpeg",
-},
-{
-  id: 24,
-  title: "Club Social",
-  price: 2100,
-  category: "pasabocas",
-  desc: "Paquete de galletas saladas.",
-  image: "./src/assets/img/clubsocial.jpeg",
-},
-{
-  id: 25,
-  title: "Doritos Queso",
-  price: 3500,
-  category: "pasabocas",
-  desc: "Tortilla crujiente sabor queso.",
-  image: "./src/assets/img/doritos.jpeg",
-},
+    id: 17,
+    title: "Costilla de Cerdo",
+    price: 15800,
+    category: "carnes",
+    desc: "500g de costilla fresca ideal para asar.",
+    image: "./src/assets/img/carne2.webp",
+  },
+  {
+    id: 18,
+    title: "Chorizo Antioqueño",
+    price: 8400,
+    category: "carnes",
+    desc: "Paquete de 6 chorizos tradicionales.",
+    image: "./src/assets/img/chorizo.webp",
+  },
+  {
+    id: 19,
+    title: "Pera Verde",
+    price: 4500,
+    category: "frutas",
+    desc: "Pera fresca y jugosa por unidad.",
+    image: "./src/assets/img/pera.jpeg",
+  },
+  {
+    id: 20,
+    title: "Mango Tommy",
+    price: 5200,
+    category: "frutas",
+    desc: "Mango dulce y aromático de tamaño grande.",
+    image: "./src/assets/img/mango.jpeg",
+  },
+  {
+    id: 21,
+    title: "Pimentón Rojo",
+    price: 3300,
+    category: "verduras",
+    desc: "Pimentón rojo fresco, unidad.",
+    image: "./src/assets/img/pimenton.jpeg",
+  },
+  {
+    id: 22,
+    title: "Lentejas",
+    price: 4100,
+    category: "granos",
+    desc: "Libra de lenteja tradicional.",
+    image: "./src/assets/img/lentejas.jpeg",
+  },
+  {
+    id: 23,
+    title: "Chocorramo",
+    price: 3200,
+    category: "pasabocas",
+    desc: "Ponqué de chocolate clásico.",
+    image: "./src/assets/img/chocorramo.jpeg",
+  },
+  {
+    id: 24,
+    title: "Club Social",
+    price: 2100,
+    category: "pasabocas",
+    desc: "Paquete de galletas saladas.",
+    image: "./src/assets/img/clubsocial.jpeg",
+  },
+  {
+    id: 25,
+    title: "Doritos Queso",
+    price: 3500,
+    category: "pasabocas",
+    desc: "Tortilla crujiente sabor queso.",
+    image: "./src/assets/img/doritos.jpeg",
+  },
 ];
 
 export default function ProductList() {
+  const [activeCategory, setActiveCategory] = useState("todos");
+
+  const categories = ["todos", ...new Set(products.map((p) => p.category))];
+
+  const filtered =
+    activeCategory === "todos"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
+
   return (
     <section id="productos" className="max-w-6xl mx-auto px-6 py-12">
-      <h3 className="text-2xl font-semibold mb-6 text-blue-900">
+      <h3 className="text-2xl font-semibold mb-6 text-blue-900 text-center">
         Nuestros Productos
       </h3>
 
+      <div className="flex flex-wrap justify-center gap-3 mb-8">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all shadow-sm 
+            ${
+              activeCategory === cat
+                ? "bg-blue-600 text-white scale-105 shadow-md"
+                : "bg-white text-blue-700 border border-blue-300 hover:bg-blue-100"
+            }`}
+          >
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
+        {filtered.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>

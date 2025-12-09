@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import CartItem from "../components/CartItem";
+import CartItem from "../Components/CartItem";
 
 export default function CartPage() {
   const {
@@ -18,15 +18,23 @@ export default function CartPage() {
     <div className="min-h-screen bg-blue-50">
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-semibold text-blue-900">Carrito ({items.length} artículos)</h1>
-          <Link to="/" className="text-blue-700 hover:underline text-sm">Seguir comprando</Link>
+          <h1 className="text-2xl font-semibold text-blue-900">
+            Carrito ({items.length} artículos)
+          </h1>
+          <Link to="/" className="text-blue-700 hover:underline text-sm">
+            Seguir comprando
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h2 className="font-medium mb-2 text-blue-800">Opciones de retiro y entrega</h2>
-              <p className="text-sm text-gray-600">(Por ahora está estático — se puede ampliar luego)</p>
+              <h2 className="font-medium mb-2 text-blue-800">
+                Opciones de retiro y entrega
+              </h2>
+              <p className="text-sm text-gray-600">
+                (Por ahora está estático — se puede ampliar luego)
+              </p>
             </div>
 
             <div className="bg-white p-4 rounded-lg shadow-sm min-h-[220px]">
@@ -46,8 +54,12 @@ export default function CartPage() {
             </div>
 
             <div className="bg-white p-4 rounded-lg shadow-sm">
-              <h3 className="font-semibold mb-2 text-blue-800">Recomendado con tu pedido</h3>
-              <p className="text-sm text-gray-600">Productos sugeridos aparecerán aquí.</p>
+              <h3 className="font-semibold mb-2 text-blue-800">
+                Recomendado con tu pedido
+              </h3>
+              <p className="text-sm text-gray-600">
+                Productos sugeridos aparecerán aquí.
+              </p>
             </div>
           </div>
 
@@ -59,13 +71,21 @@ export default function CartPage() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setPaymentMethod("card")}
-                  className={`flex-1 px-3 py-2 rounded-md border ${paymentMethod === "card" ? "bg-blue-800 text-white border-blue-800" : "bg-white text-gray-700"}`}
+                  className={`flex-1 px-3 py-2 rounded-md border ${
+                    paymentMethod === "card"
+                      ? "bg-blue-800 text-white border-blue-800"
+                      : "bg-white text-gray-700"
+                  }`}
                 >
                   Tarjeta
                 </button>
                 <button
                   onClick={() => setPaymentMethod("cod")}
-                  className={`flex-1 px-3 py-2 rounded-md border ${paymentMethod === "cod" ? "bg-blue-800 text-white border-blue-800" : "bg-white text-gray-700"}`}
+                  className={`flex-1 px-3 py-2 rounded-md border ${
+                    paymentMethod === "cod"
+                      ? "bg-blue-800 text-white border-blue-800"
+                      : "bg-white text-gray-700"
+                  }`}
                 >
                   Contra entrega
                 </button>
@@ -79,7 +99,9 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between">
                 <span>Envío</span>
-                <span>{shipping === 0 ? "Gratis" : `$${shipping.toFixed(2)}`}</span>
+                <span>
+                  {shipping === 0 ? "Gratis" : `$${shipping.toFixed(2)}`}
+                </span>
               </div>
               <div className="flex justify-between font-semibold">
                 <span>Total estimado</span>
@@ -91,12 +113,17 @@ export default function CartPage() {
               <strong>Entrega estimada:</strong> {eta}
             </div>
 
-            <button disabled={items.length === 0} className="w-full bg-blue-800 text-white py-2 rounded-md mb-2 hover:bg-blue-700 transition disabled:opacity-60">
+            <button
+              disabled={items.length === 0}
+              className="w-full bg-blue-800 text-white py-2 rounded-md mb-2 hover:bg-blue-700 transition disabled:opacity-60"
+            >
               Continuar con el pago
             </button>
 
             <button
-              onClick={() => { clear(); }}
+              onClick={() => {
+                clear();
+              }}
               className="w-full border border-gray-300 py-2 rounded-md text-sm hover:bg-gray-50 transition"
             >
               Vaciar carrito

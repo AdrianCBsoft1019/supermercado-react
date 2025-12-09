@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { ShoppingCart, Search, User } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom'; // Importar 'Link'
-import { useCart } from '../context/CartContext'; // Importar el hook useCart
+import React, { useState } from "react";
+import { ShoppingCart, Search, User } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom"; // Importar 'Link'
+import { useCart } from "../context/CartContext"; // Importar el hook useCart
 
 export default function Header() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   // 1. Obtener items y calcular el contador del carrito (Lógica de CartButton)
@@ -20,13 +20,14 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-blue-900 text-white shadow-lg sticky top-0 z-50"> 
+    <header className="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-
           {/* Logo (click to go home) */}
           <div className="flex items-center space-x-1">
-            <Link to="/" className="text-2xl sm:text-gray-300 font-bold">Fast DRC Supermarket</Link>
+            <Link to="/" className="text-2xl sm:text-gray-300 font-bold">
+              Fast DRC Supermarket
+            </Link>
           </div>
 
           {/* Busqueda Desktop */}
@@ -39,21 +40,25 @@ export default function Header() {
                 placeholder="Buscar productos"
                 className="w-full px-2 py-2 rounded-l-lg focus:outline-none bg-white text-black"
               />
-              <button type="submit" className="bg-blue-600 px-5 py-3 rounded-r-lg transition">
+              <button
+                type="submit"
+                className="bg-blue-600 px-5 py-3 rounded-r-lg transition"
+              >
                 <Search size={18} />
               </button>
             </div>
           </form>
 
-
           <div className="flex items-center space-x-4">
-            {/* Botón de Usuario */}
-            <Link to="/profile" className="relative hover:bg-blue-600 px-3 py-2 rounded-lg transition ">
+            <Link
+              to="/login"
+              className="relative hover:bg-blue-600 px-3 py-2 rounded-lg transition"
+            >
               <User size={24} />
             </Link>
 
-            <Link 
-              to="/cart" 
+            <Link
+              to="/cart"
               className="relative hover:bg-blue-600 px-3 py-2 rounded-lg transition"
             >
               <ShoppingCart size={24} />
@@ -76,7 +81,10 @@ export default function Header() {
               placeholder="Buscar..."
               className="w-full px-3 py-2 rounded-l-lg focus:outline-none bg-white text-black text-sm"
             />
-            <button type="submit" className="bg-blue-600 px-4 py-2 rounded-r-lg transition">
+            <button
+              type="submit"
+              className="bg-blue-600 px-4 py-2 rounded-r-lg transition"
+            >
               <Search size={18} />
             </button>
           </div>
