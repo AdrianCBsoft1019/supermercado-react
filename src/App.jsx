@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
 import Header from "./Components/Header";
+import Carrousel from "./Components/Carrousel";
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
       <BrowserRouter>
         <div className="min-h-screen flex flex-col bg-blue-50">
           <Header />
-
+          <Carrousel />
           <main className="flex-1">
             <Routes>
               <Route
