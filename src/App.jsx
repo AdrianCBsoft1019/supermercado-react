@@ -1,37 +1,53 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductGrid from "./components/ProductGrid";
-import SobreNosotros from "./components/SobreNosotros";
-import Footer from "./components/Footer";
-import CartButton from "./components/CartButton";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import ProductGrid from "./Components/ProductList";
+import SobreNosotros from "./Components/SobreNosotros";
+import Footer from "./Components/Footer";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
+import Header from "./Components/Header";
+import Carrousel from "./Components/Carrousel";
+import Login from "./Pages/Login";
+import SignIn from "./Pages/SignIn";
+
+function AppContent() {
+  const location = useLocation();
+  const showCarrousel = location.pathname === "/";
+
+  return (
+    <div className="min-h-screen flex flex-col bg-blue-50">
+      <Header />
+      {showCarrousel && <Carrousel />}
+
+      <main className="flex-1">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <ProductGrid />
+                <div id="sobre-nosotros">
+                  <SobreNosotros />
+                </div>
+              </>
+            }
+          />
+
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-blue-50">
-          <CartButton />
-
-          <main className="flex-1">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <ProductGrid />
-                    <div id="sobre-nosotros">
-                      <SobreNosotros />
-                    </div>
-                  </>
-                }
-              />
-              <Route path="/cart" element={<CartPage />} />
-            </Routes>
-          </main>
-
-          <Footer />
-        </div>
+        <AppContent />
       </BrowserRouter>
     </CartProvider>
   );
