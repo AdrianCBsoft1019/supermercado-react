@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import ProductGrid from "./components/ProductGrid";
-import SobreNosotros from "./components/SobreNosotros";
-import Footer from "./components/Footer";
+import ProductGrid from "./Components/ProductList";
+import SobreNosotros from "./Components/SobreNosotros";
+import Footer from "./Components/Footer";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
 import Header from "./Components/Header";
