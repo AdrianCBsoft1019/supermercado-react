@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ProductGrid from "./components/ProductGrid";
 import SobreNosotros from "./components/SobreNosotros";
 import Footer from "./components/Footer";
@@ -7,14 +7,15 @@ import { CartProvider } from "./context/CartContext";
 import Header from "./Components/Header";
 import Carrousel from "./Components/Carrousel";
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+  const showCarrousel = location.pathname === "/";
+
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-blue-50">
-          <Header />
-          <Carrousel />
-          <main className="flex-1">
+    <div className="min-h-screen flex flex-col bg-blue-50">
+      <Header />
+      {showCarrousel && <Carrousel />}
+      <main className="flex-1">
             <Routes>
               <Route
                 path="/"
@@ -33,6 +34,14 @@ export default function App() {
 
           <Footer />
         </div>
+      );
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <BrowserRouter>
+        <AppContent />
       </BrowserRouter>
     </CartProvider>
   );
