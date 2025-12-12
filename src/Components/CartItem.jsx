@@ -17,12 +17,12 @@ export default function CartItem({ item }) {
     <div className="flex items-center gap-4 p-4 bg-white rounded shadow">
       <img
         src={item.image || "/icons/placeholder.png"}
-        alt={item.name}
+        alt={item.title}
         className="w-20 h-20 object-cover rounded"
       />
 
       <div className="flex-1">
-        <h4 className="font-semibold">{item.name}</h4>
+        <h4 className="font-semibold">{item.title}</h4>
         <p className="text-sm text-gray-600">Precio: ${formatCurrency(item.price)}</p>
         <p className="text-sm text-blue-600">Subtotal: ${formatCurrency(item.price * item.qty)}</p>
       </div>
@@ -31,7 +31,7 @@ export default function CartItem({ item }) {
         <button
           onClick={() => addItem(item)}
           className="w-8 h-8 rounded bg-blue-600 text-white flex items-center justify-center"
-          aria-label={`Agregar una unidad de ${item.name}`}
+          aria-label={`Agregar una unidad de ${item.title}`}
         >
           +
         </button>
@@ -41,7 +41,7 @@ export default function CartItem({ item }) {
         <button
           onClick={() => decreaseItem(item.id)}
           className="w-8 h-8 rounded bg-red-500 text-white flex items-center justify-center"
-          aria-label={`Disminuir una unidad de ${item.name}`}
+          aria-label={`Disminuir una unidad de ${item.title}`}
         >
           -
         </button>
@@ -49,7 +49,7 @@ export default function CartItem({ item }) {
         <button
           onClick={() => removeItem(item.id)}
           className="text-xs text-gray-500 underline"
-          aria-label={`Eliminar ${item.name} del carrito`}
+          aria-label={`Eliminar ${item.title} del carrito`}
         >
           Eliminar
         </button>
