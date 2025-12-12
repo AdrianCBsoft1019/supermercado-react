@@ -1,51 +1,56 @@
+import React from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CartItem({ item }) {
-  const { addItem, removeItem } = useCart();
+  const { addItem, decreaseItem, removeItem } = useCart();
+
+  const formatCurrency = (n) => {
+    try {
+      return n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    } catch (e) {
+      return n;
+    }
+  };
 
   return (
-    <div className="flex items-center bg-white p-3 rounded-lg shadow-md">
+    <div className="flex items-center gap-4 p-4 bg-white rounded shadow">
       <img
-        src={item.image}
-        alt={item.title}
-        className="w-20 h-20 object-cover rounded-lg mr-4"
+        src={item.image || "/icons/placeholder.png"}
+        alt={item.name}
+        className="w-20 h-20 object-cover rounded"
       />
 
       <div className="flex-1">
-        <h4 className="font-semibold text-blue-900">{item.title}</h4>
-
-        <p className="text-sm text-gray-600">
-          Precio:{" "}
-          {item.price.toLocaleString("es-CO", {
-            style: "currency",
-            currency: "COP",
-          })}
-        </p>
-
-        <p className="text-sm font-semibold text-blue-700">
-          Subtotal:{" "}
-          {(item.price * item.qty).toLocaleString("es-CO", {
-            style: "currency",
-            currency: "COP",
-          })}
-        </p>
+        <h4 className="font-semibold">{item.name}</h4>
+        <p className="text-sm text-gray-600">Precio: ${formatCurrency(item.price)}</p>
+        <p className="text-sm text-blue-600">Subtotal: ${formatCurrency(item.price * item.qty)}</p>
       </div>
 
-      <div className="flex flex-col items-center ml-4">
+      <div className="flex flex-col items-center space-y-2">
         <button
           onClick={() => addItem(item)}
-          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+          className="w-8 h-8 rounded bg-blue-600 text-white flex items-center justify-center"
+          aria-label={`Agregar una unidad de ${item.name}`}
         >
           +
         </button>
 
-        <span className="font-bold text-blue-900 my-1">{item.qty}</span>
+        <div className="font-medium">{item.qty}</div>
+
+        <button
+          onClick={() => decreaseItem(item.id)}
+          className="w-8 h-8 rounded bg-red-500 text-white flex items-center justify-center"
+          aria-label={`Disminuir una unidad de ${item.name}`}
+        >
+          -
+        </button>
 
         <button
           onClick={() => removeItem(item.id)}
-          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+          className="text-xs text-gray-500 underline"
+          aria-label={`Eliminar ${item.name} del carrito`}
         >
-          -
+          Eliminar
         </button>
       </div>
     </div>

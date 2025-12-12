@@ -3,8 +3,8 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 const CartContext = createContext();
 
 const initialState = {
-  items: [], 
-  paymentMethod: "card", 
+  items: [],
+  paymentMethod: "card",
 };
 
 function reducer(state, action) {
@@ -51,18 +51,29 @@ export function CartProvider({ children }) {
     try {
       const raw = localStorage.getItem("cart_state_v1");
       if (raw) dispatch({ type: "INIT", payload: JSON.parse(raw) });
-    } catch (e) {}
+    } catch (e) {
+    }
   }, []);
 
   useEffect(() => {
     try {
       localStorage.setItem("cart_state_v1", JSON.stringify(state));
-    } catch (e) {}
+    } catch (e) {
+    }
   }, [state]);
 
   const addItem = (product) => dispatch({ type: "ADD", payload: product });
   const removeItem = (id) => dispatch({ type: "REMOVE", payload: id });
-  const updateQty = (id, qty) => dispatch({ type: "UPDATE_QTY", payload: { id, qty } });
+  const updateQty = (id, qty) =>
+    dispatch({ type: "UPDATE_QTY", payload: { id, qty } });
+
+  const decreaseItem = (id) => {
+    const found = state.items.find((i) => i.id === id);
+    if (!found) return;
+    const newQty = found.qty - 1;
+    dispatch({ type: "UPDATE_QTY", payload: { id, qty: newQty } });
+  };
+
   const setPaymentMethod = (method) => dispatch({ type: "SET_PAYMENT", payload: method });
   const clear = () => dispatch({ type: "CLEAR" });
 
@@ -81,6 +92,7 @@ export function CartProvider({ children }) {
         addItem,
         removeItem,
         updateQty,
+        decreaseItem,
         setPaymentMethod,
         clear,
         subtotal,
