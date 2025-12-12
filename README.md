@@ -47,9 +47,6 @@ Fast DRC Supermarket/
 │  │   ├─ Login.jsx        
 │  │   └─ SignIn.jsx           
 │  │
-│  ├─ services/              # Comunicación con la API 
-│  │   └─ super.js
-│  │
 │  │
 │  ├─ App.jsx                # Enrutador principal
 │  ├─ index.css               # Renderiza la app dentro del root DOM
