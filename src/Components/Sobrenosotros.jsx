@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import FALLBACK_IMG from "../assets/img/frutas1.avif";
 
 const MAIN_IMG =
-"https://s32519.pcdn.co/es/wp-content/uploads/sites/3/2022/02/blog-supermarket-inventory-management-1-1136x480.jpg.webp";
+  "https://s32519.pcdn.co/es/wp-content/uploads/sites/3/2022/02/blog-supermarket-inventory-management-1-1136x480.jpg.webp";
 
 export default function SobreNosotros() {
   const ref = useRef(null);
