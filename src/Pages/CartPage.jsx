@@ -5,22 +5,36 @@ import { useAuth } from "../context/AuthContext";
 import CartItem from "../Components/CartItem";
 
 export default function CartPage() {
-  const { items, subtotal, shipping, total, eta, clear } = useCart();
-  const { user, setRedirectAfterLogin } = useAuth();
+  const cart = useCart();
+  const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const [showInvoice, setShowInvoice] = useState(false);
+  const [invoiceNumber] = useState(() => String(Date.now()).slice(-6));
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const wantPay = params.get("pay") === "1";
 
-    if (wantPay && user) {
-      setShowInvoice(true);
+    if (wantPay && auth?.user) {
       navigate(location.pathname, { replace: true });
+      setTimeout(() => setShowInvoice(true), 0);
     }
-  }, [location.search, user, navigate, location.pathname]);
+  }, [location.search, auth?.user, navigate, location.pathname]);
+
+  // Validar que los contextos están disponibles
+  if (!cart || !auth) {
+    return (
+      <div className="p-6">
+        <h2 className="text-2xl font-semibold mb-4">Error al cargar</h2>
+        <p className="text-gray-600">Por favor, recarga la página.</p>
+      </div>
+    );
+  }
+
+  const { items, subtotal, shipping, total, eta, clear } = cart;
+  const { user, setRedirectAfterLogin } = auth;
 
   const handlePay = () => {
     if (!user) {
@@ -47,7 +61,9 @@ export default function CartPage() {
       const invoices = JSON.parse(localStorage.getItem("invoices") || "[]");
       invoices.push(invoice);
       localStorage.setItem("invoices", JSON.stringify(invoices));
-    } catch (e) {}
+    } catch {
+      // Error al guardar factura en localStorage
+    }
 
     clear();
 
@@ -60,9 +76,15 @@ export default function CartPage() {
 
   if (!items || items.length === 0) {
     return (
-      <div className="p-6">
+      <div className="p-6 text-center">
         <h2 className="text-2xl font-semibold mb-4">Tu carrito está vacío</h2>
-        <p className="text-gray-600">Añade productos para verlos aquí.</p>
+        <p className="text-gray-600 mb-6">Añade productos para verlos aquí.</p>
+        <button
+          onClick={() => navigate("/")}
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Volver a comprar
+        </button>
       </div>
     );
   }
@@ -137,7 +159,7 @@ export default function CartPage() {
 
               <div className="text-right">
                 <p className="text-sm text-gray-500">Factura</p>
-                <p className="font-medium">#{String(Date.now()).slice(-6)}</p>
+                <p className="font-medium">#{invoiceNumber}</p>
               </div>
             </div>
 
@@ -160,7 +182,7 @@ export default function CartPage() {
               <ul className="max-h-40 overflow-auto divide-y">
                 {items.map((it) => (
                   <li key={it.id} className="py-2 flex justify-between text-sm">
-                    <span className="text-gray-700">{it.name} x {it.qty}</span>
+                    <span className="text-gray-700">{it.title} x {it.qty}</span>
                     <span className="text-gray-700">${(it.price * it.qty).toLocaleString()}</span>
                   </li>
                 ))}
