@@ -25,17 +25,24 @@ export default function Carrousel() {
     },
     {
       id: 4,
-      image: 'https://fundaciondelcorazon.com/images/Blog/iStock-513470606.jpg',
-      title: 'Lácteos',
-      description: 'Directamente de grandes granjas'
+      image: 'https://m.media-amazon.com/images/I/A1CTUsdPdXL._SL1500_.jpg',
+      title: 'Pasabocas',
+      description: 'Saludables y deliciosos'
     },
     {
       id: 5,
-      image: 'https://www.revistapancaliente.co/wp-content/uploads/2022/03/Tipos-de-pan-scaled.webp',
-      title: 'Panadería Artesanal',
-      description: 'Hecho fresco cada día'
+      image: 'https://www.suppliescolombia.com/wp-content/uploads/2019/04/ProductosAseoLimpieza.png',
+      title: 'Productos de aseo',
+      description: 'Los mejores productos para tu hogar'
     }
   ];
+
+  const handleComprar = () => {
+    const element = document.getElementById('productos');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -73,7 +80,7 @@ export default function Carrousel() {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover brightness-75"
               />
               
               <div className={`absolute inset-0 bg-linear-to-r ${slide.color} opacity-40`}></div>
@@ -85,7 +92,10 @@ export default function Carrousel() {
                 <p className="text-lg md:text-xl drop-shadow-md max-w-2xl">
                   {slide.description}
                 </p>
-                <button className="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg ">
+                <button 
+                  onClick={() => handleComprar(slide.category)}
+                  className="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition"
+                >
                   Comprar Ahora
                 </button>
               </div>

@@ -30,9 +30,10 @@ export default function ProductDetailModal({ product, onClose }) {
   const key = `product_reviews_${product.id}`;
 
   useEffect(() => {
-      const raw = localStorage.getItem(key);
-      if (raw) (JSON.parse(raw));
-    
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      setReviews(JSON.parse(raw));
+    }
   }, [key]);
 
   useEffect(() => {
@@ -43,7 +44,8 @@ export default function ProductDetailModal({ product, onClose }) {
   }, []);
 
   const saveReviews = (next) => {
-    setReviews(next); 
+    setReviews(next);
+    localStorage.setItem(key, JSON.stringify(next));
   };
 
   const handleAddReview = (e) => {
