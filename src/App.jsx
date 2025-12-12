@@ -9,6 +9,7 @@ import Carrousel from "./Components/Carrousel";
 import Login from "./Pages/Login";
 import SignIn from "./Pages/SignIn";
 import Botontono from "./Components/BotonDark"; 
+import PromoCards from "./Components/PromoCards"; 
 
 function AppContent() {
   const location = useLocation();
@@ -31,6 +32,8 @@ function AppContent() {
             element={
               <>
                 <ProductGrid />
+                <PromoCards />
+
                 <div id="sobre-nosotros">
                   <SobreNosotros />
                 </div>
