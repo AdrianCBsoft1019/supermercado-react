@@ -37,7 +37,7 @@ export default function ProductDetailModal({ product, onClose }) {
   }, [key]);
 
   useEffect(() => {
-    // prevent background scroll while modal open
+
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = original);

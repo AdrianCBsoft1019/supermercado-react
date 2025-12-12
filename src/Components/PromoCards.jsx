@@ -54,7 +54,6 @@ export default function PromoCards() {
                 />
               ) : (
                 <span className="text-gray-500 dark:text-gray-300 text-sm">
-                  (Agregar imagen)
                 </span>
               )}
             </div>
