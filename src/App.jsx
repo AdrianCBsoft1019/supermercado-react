@@ -4,6 +4,7 @@ import SobreNosotros from "./Components/Sobrenosotros";
 import Footer from "./Components/Footer";
 import CartPage from "./Pages/CartPage";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
 import Header from "./Components/Header";
 import Carrousel from "./Components/Carrousel";
 import Login from "./Pages/Login";
@@ -54,10 +55,12 @@ function AppContent() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </CartProvider>
+    <BrowserRouter>
+      <CartProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </CartProvider>
+    </BrowserRouter>
   );
 }
