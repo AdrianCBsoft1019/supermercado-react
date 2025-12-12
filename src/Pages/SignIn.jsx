@@ -1,26 +1,54 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.some((u) => u.email === email)) {
+      alert("Ya existe una cuenta con ese correo.");
+      return;
+    }
+
+    users.push({ name, email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+    // Notify other parts of the app (optional)
+    window.dispatchEvent(new Event("userChange"));
+    // Redirigir al login para que el usuario inicie sesión
+    navigate("/login");
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md mx-auto mt-10">
       <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
         Crear Cuenta
       </h2>
 
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           type="text"
           placeholder="Nombre completo"
           className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Correo electrónico"
           className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Contraseña"
           className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
