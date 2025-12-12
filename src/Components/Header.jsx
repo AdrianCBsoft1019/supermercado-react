@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ShoppingCart, Search, User } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom"; // Importar 'Link'
-import { useCart } from "../context/CartContext"; // Importar el hook useCart
-
+import { useNavigate, Link } from "react-router-dom"; 
+import { useCart } from "../context/CartContext"; 
 export default function Header() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  // 1. Obtener items y calcular el contador del carrito (Lógica de CartButton)
   const { items } = useCart();
   const count = items.reduce((s, i) => s + i.qty, 0);
 
@@ -28,7 +26,6 @@ export default function Header() {
     loadUser();
     const onStorage = () => loadUser();
     window.addEventListener("storage", onStorage);
-    // also listen to custom in-tab events when user changes
     window.addEventListener("userChange", onStorage);
     return () => {
       window.removeEventListener("storage", onStorage);
@@ -40,7 +37,6 @@ export default function Header() {
     if (e) e.preventDefault();
     const q = search.trim();
     if (!q) return;
-    // Navigate to tienda with query param
     navigate(`/tienda?search=${encodeURIComponent(q)}`);
   };
 
@@ -48,14 +44,12 @@ export default function Header() {
     <header className="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo (click to go home) */}
           <div className="flex items-center space-x-1">
             <Link to="/" className="text-2xl sm:text-gray-300 font-bold">
               Fast DRC Supermarket
             </Link>
           </div>
 
-          {/* Busqueda Desktop */}
           <form onSubmit={submitSearch} className="hidden md:flex flex-1 mx-8">
             <div className="w-full relative flex">
               <input
@@ -112,7 +106,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Busqueda Móvil */}
         <form onSubmit={submitSearch} className="md:hidden mt-4">
           <div className="relative flex">
             <input
