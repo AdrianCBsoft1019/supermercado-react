@@ -74,9 +74,12 @@ Fast DRC Supermarket/
   npm run dev
   ```
 ## Descripción de cada vista
+-cartpage.jsx: funciona como la página de control y revisión final del pedido en tu tienda en línea. Su principal rol es consumir el CartContext para mostrar la lista completa de artículos (utilizando CartItem.jsx para cada uno), visualizar los totales financieros (subtotal, envío y total), y gestionar el flujo de pago. Este componente verifica la autenticación del usuario a través del AuthContext antes de permitir la finalización. Cuando el usuario confirma el pago, CartPage simula la transacción, genera la vista de la Factura y, finalmente, vacía el carrito.
+
 - Log In: Es la vista de inicio de sesión, donde permite al usuario autenticarse ingresando su correo y contraseña. Verifica las credenciales contra los usuarios almacenados localmente en el (localStorage). Si son correctas, almacena la sesión y redirige al usuario a la página principal.
+  
 - Sign In: Es la vista de registro o creación de nueva cuenta; Permitiendo al usuario registrar un nuevo perfil ingresando nombre, correo y contraseña. Valida que el correo no esté ya registrado. Si es nuevo, crea el objeto de usuario y lo guarda en la lista de usuarios en el almacenamiento local (localStorage). Luego, inicia la sesión del nuevo usuario.
-- 
+  
 ## Lista de componentes principales y su propósito
 - BotonDark : implementa un botón flotante en la esquina inferior derecha que permite al usuario alternar entre el modo claro y el modo oscuro a nivel global en la aplicación usando document.documentElement.classList.
   
