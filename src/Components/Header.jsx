@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ShoppingCart, Search, User } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom"; // Importar 'Link'
 import { useCart } from "../context/CartContext"; // Importar el hook useCart
@@ -10,6 +10,31 @@ export default function Header() {
   // 1. Obtener items y calcular el contador del carrito (Lógica de CartButton)
   const { items } = useCart();
   const count = items.reduce((s, i) => s + i.qty, 0);
+
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const loadUser = () => {
+      const u = JSON.parse(localStorage.getItem("user") || "null");
+      if (u && u.logged && u.email) {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const found = users.find((x) => x.email === u.email) || { email: u.email };
+        setUserInfo(found);
+      } else {
+        setUserInfo(null);
+      }
+    };
+
+    loadUser();
+    const onStorage = () => loadUser();
+    window.addEventListener("storage", onStorage);
+    // also listen to custom in-tab events when user changes
+    window.addEventListener("userChange", onStorage);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("userChange", onStorage);
+    };
+  }, []);
 
   const submitSearch = (e) => {
     if (e) e.preventDefault();
@@ -50,12 +75,28 @@ export default function Header() {
           </form>
 
           <div className="flex items-center space-x-4">
-            <Link
-              to="/login"
-              className="relative hover:bg-blue-600 px-3 py-2 rounded-lg transition"
-            >
-              <User size={24} />
-            </Link>
+            {userInfo ? (
+              <div className="flex items-center space-x-2 px-3 py-2 rounded-lg">
+                <span className="text-sm font-semibold">Hola, {userInfo.name || userInfo.email}</span>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    setUserInfo(null);
+                    navigate("/");
+                  }}
+                  className="text-xs bg-white text-blue-700 px-2 py-1 rounded ml-2"
+                >
+                  Salir
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="relative hover:bg-blue-600 px-3 py-2 rounded-lg transition"
+              >
+                <User size={24} />
+              </Link>
+            )}
 
             <Link
               to="/cart"
