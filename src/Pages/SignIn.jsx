@@ -1,26 +1,32 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; 
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const { login } = useAuth(); 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const users = JSON.parse(localStorage.getItem("users") || "[]");
+
     if (users.some((u) => u.email === email)) {
       alert("Ya existe una cuenta con ese correo.");
       return;
     }
 
-    users.push({ name, email, password });
+    const newUser = { name, email, password };
+    users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-    // Notify other parts of the app (optional)
+
     window.dispatchEvent(new Event("userChange"));
-    // Redirigir al login para que el usuario inicie sesión
-    navigate("/login");
+
+    login({ name, email });
+
   };
 
   return (
