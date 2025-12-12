@@ -7,7 +7,8 @@ export default function CartItem({ item }) {
   const formatCurrency = (n) => {
     try {
       return n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    } catch (e) {
+    } catch (err) {
+      console.warn(err);
       return n;
     }
   };
